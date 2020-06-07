@@ -9,7 +9,6 @@ import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 
 
-@SpringBootTest
 public class ProjectTest {
 
     @Test
