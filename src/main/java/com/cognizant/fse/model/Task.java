@@ -11,6 +11,8 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "parentTask_id", nullable = true)
     private ParentTask parentTask;
+    @OneToMany(mappedBy = "id")
+    private Project project;
     private String name;
     private Date startDate;
     private Date endDate;
@@ -20,14 +22,23 @@ public class Task {
     public Task() {
     }
 
-    public Task(Long id, ParentTask parentTask, String name, Date startDate, Date endDate, int priority, TaskStatus status) {
+    public Task(Long id, ParentTask parentTask, Project project, String name, Date startDate, Date endDate, int priority, TaskStatus status) {
         this.id = id;
         this.parentTask = parentTask;
+        this.project = project;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.priority = priority;
         this.status = status;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public ParentTask getParentTask() {
