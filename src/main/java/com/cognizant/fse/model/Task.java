@@ -1,9 +1,16 @@
 package com.cognizant.fse.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Task {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "parentTask_id", nullable = true)
+    private ParentTask parentTask;
     private String name;
     private Date startDate;
     private Date endDate;
@@ -13,13 +20,22 @@ public class Task {
     public Task() {
     }
 
-    public Task(Long id, String name, Date startDate, Date endDate, int priority, TaskStatus status) {
+    public Task(Long id, ParentTask parentTask, String name, Date startDate, Date endDate, int priority, TaskStatus status) {
         this.id = id;
+        this.parentTask = parentTask;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.priority = priority;
         this.status = status;
+    }
+
+    public ParentTask getParentTask() {
+        return parentTask;
+    }
+
+    public void setParentTask(ParentTask parentTask) {
+        this.parentTask = parentTask;
     }
 
     public Long getId() {

@@ -9,9 +9,10 @@ public class TaskTest {
 
     @Test
     public void test1() {
-        Task task = new Task(1L, "Task1", new Date(), new Date(), 1, TaskStatus.NOT_STARTED);
+        Task task = new Task(1L, null, "Task1", new Date(), new Date(), 1, TaskStatus.NOT_STARTED);
 
         Assertions.assertNotNull(task);
+        Assertions.assertNull(task.getParentTask());
         Assertions.assertEquals(1, task.getId());
         Assertions.assertEquals("Task1", task.getName());
         Assertions.assertEquals(1, task.getPriority());
@@ -27,10 +28,23 @@ public class TaskTest {
         task.setStatus(TaskStatus.NOT_STARTED);
 
         Assertions.assertNotNull(task);
+        Assertions.assertNull(task.getParentTask());
         Assertions.assertEquals(1, task.getId());
         Assertions.assertEquals("Task1", task.getName());
         Assertions.assertEquals(1, task.getPriority());
         Assertions.assertEquals("NOT_STARTED", task.getStatus().name());
+    }
+
+    @Test
+    public void test3() {
+        ParentTask parentTask = new ParentTask(1L, "Parent 1");
+        Task task1 = new Task(1L, parentTask, "Task 1", new Date(), new Date(), 1, TaskStatus.NOT_STARTED);
+        Task task2 = new Task(2L, parentTask, "Task 2", new Date(), new Date(), 2, TaskStatus.NOT_STARTED);
+        Assertions.assertNotNull(parentTask);
+        Assertions.assertNotNull(task1);
+        Assertions.assertNotNull(task2);
+        Assertions.assertEquals(parentTask, task1.getParentTask());
+        Assertions.assertEquals(parentTask, task2.getParentTask());
     }
 
 }
