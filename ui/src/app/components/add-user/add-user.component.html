@@ -1,29 +1,65 @@
-<form>
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-6">
+        <p class="h3">Add User</p>
+    </div>
+</div>
+<br>
+<form ngNativeValidate #newUserForm="ngForm">
     <div class="form-group row">
         <label for="firstName" class="col-sm-2 col-form-label">First name:</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" id="firstName" placeholder="First name">
+            <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="firstName"
+                placeholder="First name" required>
         </div>
     </div>
     <div class="form-group row">
         <label for="lastName" class="col-sm-2 col-form-label">Last name:</label>
         <div class="col-sm-6">
-            <input type="text" class="form-control" id="lastName" placeholder="Last name">
+            <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="lastName"
+                placeholder="Last name" required>
         </div>
     </div>
     <div class="form-group row">
         <label for="employeeId" class="col-sm-2 col-form-label">Employee ID:</label>
         <div class="col-sm-3">
-            <input type="text" class="form-control" id="employeeId" placeholder="Employee ID">
+            <input type="text" class="form-control" id="employeeId" name="empId" [(ngModel)]="empId"
+                placeholder="Employee ID" required>
         </div>
     </div>
     <div class="form-group row">
-        <div class="col-sm-2 col-md-4 col-lg-2"></div>
+        <div class="col-sm-2 col-md-4 col-lg-3"></div>
         <div class="col-sm-3 col-md-2 col-lg-3" style="">
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!newUserForm.form.valid"
+                (click)="addNewUser(newUserForm)">Add</button>
         </div>
-        <div class="col-sm-3 col-md-2 col-lg-3">
+        <div class="col-sm-3 col-md-2 col-lg-2">
             <button type="reset" class="btn btn-primary">Reset</button>
         </div>
     </div>
 </form>
+<hr />
+<br>
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="row">
+            <div class="col-sm-7 col-md-8 col-lg-9">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">List group item heading</h5>
+                </div>
+                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
+                    blandit.
+                </p>
+                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
+                    blandit.
+                </p>
+            </div>
+            <div class="col-sm-5 col-md-4 col-lg-3">
+                <div class="d-flex flex-column">
+                    <button class="btn btn-secondary btn-sm">Edit</button>
+                    <button class="btn btn-secondary btn-sm">Delete</button>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
