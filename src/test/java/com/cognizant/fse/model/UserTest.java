@@ -15,8 +15,8 @@ public class UserTest {
     public void test1() {
         Project project1 = new Project(1L, "Project1", new Date(), new Date(), 1);
         Project project2 = new Project(2L, "Project2", new Date(), new Date(), 2);
-        Task task1 = new Task(1L, null, project1, "Task 1", new Date(), new Date(), 1, TaskStatus.NOT_STARTED);
-        Task task2 = new Task(2L, null, project2, "Task 2", new Date(), new Date(), 1, TaskStatus.NOT_STARTED);
+        Task task1 = new Task(1L, null, new HashSet<>(Arrays.asList(project1, project2)), "Task 1", new Date(), new Date(), 1, TaskStatus.NOT_STARTED);
+        Task task2 = new Task(2L, null, new HashSet<>(Arrays.asList(project1, project2)), "Task 2", new Date(), new Date(), 1, TaskStatus.NOT_STARTED);
         User user = new User(1L, "First name", "Last Name", "123456",
                                 new HashSet<>(Arrays.asList(project1, project2)),
                                 new HashSet<>(Arrays.asList(task1, task2)));

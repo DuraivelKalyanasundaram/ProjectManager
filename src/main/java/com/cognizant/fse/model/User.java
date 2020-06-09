@@ -1,6 +1,7 @@
 package com.cognizant.fse.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,9 +13,9 @@ public class User {
     private String lastName;
     private String employeeId;
     @OneToMany(mappedBy = "id")
-    private Set<Project> projects;
+    private Set<Project> projects = new HashSet<>();
     @OneToMany(mappedBy = "id")
-    private Set<Task> tasks;
+    private Set<Task> tasks = new HashSet<>();
 
     public User() {
     }

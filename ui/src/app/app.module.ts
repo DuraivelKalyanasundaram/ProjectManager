@@ -7,6 +7,7 @@ import { AddProjectComponent } from './components/add-project/add-project.compon
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
 import { ViewTaskComponent } from './components/view-task/view-task.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ViewTaskComponent } from './components/view-task/view-task.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

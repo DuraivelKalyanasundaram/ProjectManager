@@ -2,6 +2,8 @@ package com.cognizant.fse.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Task {
@@ -12,7 +14,7 @@ public class Task {
     @JoinColumn(name = "parentTask_id", nullable = true)
     private ParentTask parentTask;
     @OneToMany(mappedBy = "id")
-    private Project project;
+    private Set<Project> projects = new HashSet<>();
     private String name;
     private Date startDate;
     private Date endDate;
@@ -22,10 +24,10 @@ public class Task {
     public Task() {
     }
 
-    public Task(Long id, ParentTask parentTask, Project project, String name, Date startDate, Date endDate, int priority, TaskStatus status) {
+    public Task(Long id, ParentTask parentTask, Set<Project> projects, String name, Date startDate, Date endDate, int priority, TaskStatus status) {
         this.id = id;
         this.parentTask = parentTask;
-        this.project = project;
+        this.projects = projects;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -33,12 +35,12 @@ public class Task {
         this.status = status;
     }
 
-    public Project getProject() {
-        return project;
+    public Set<Project> getProjects() {
+        return projects;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 
     public ParentTask getParentTask() {
