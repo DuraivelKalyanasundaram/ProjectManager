@@ -51,4 +51,16 @@ public class User {
     public Set<Task> getTasks() {
         return tasks;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", employeeId='" + employeeId + '\'' +
+                ", projects=" + projects +
+                ", tasks=" + tasks +
+                '}';
+    }
 }

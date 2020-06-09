@@ -1,7 +1,6 @@
 package com.cognizant.fse;
 
-import com.cognizant.fse.controller.ApplicationController;
-import org.junit.jupiter.api.Assertions;
+import com.cognizant.fse.controller.UserController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,11 +11,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ApplicationTest {
 
     @Autowired
-    ApplicationController applicationController;
+    UserController userController;
 
     @Test
     public void contextLoad() {
-        assertThat(applicationController).isNotNull();
+        assertThat(userController).isNotNull();
     }
 
 }
