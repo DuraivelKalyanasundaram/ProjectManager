@@ -16,6 +16,7 @@ export class AddUserComponent implements OnInit {
   empId:string;
   userAdded = false;
   userUpdated = false;
+  userDeleted = false;
   updateMode = false;
   editedUser: UserDTO;
   users : UserDTO[];
@@ -89,5 +90,18 @@ export class AddUserComponent implements OnInit {
     this.updateMode = true;
     this.buttonAction = 'Update'
     this.editedUser = user;
+  }
+
+  deleteUser(user: UserDTO) {
+    this.userService.deleteUser(user).subscribe(data => {
+      console.log ('User deleted ' + data);
+      this.userDeleted = true;
+      setTimeout(() => {
+        this.userDeleted = false
+      }, 5000);
+      this.getUsers();
+    }, error => {
+      console.log (' Error ' + error)
+    })
   }
 }

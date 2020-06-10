@@ -25,4 +25,8 @@ export class UserService {
     return this.httpClient.put(this.BASE_URL + '/' + user.id, JSON.stringify(user), this.httpOptions);
   }
 
+  deleteUser(user: UserDTO) {
+    return this.httpClient.delete(this.BASE_URL + '/' + user.id);
+  }
+
 }
