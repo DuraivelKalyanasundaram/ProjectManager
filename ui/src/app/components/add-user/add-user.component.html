@@ -43,8 +43,15 @@
 <div *ngIf="userDeleted" class="alert alert-success" role="alert">User is successfully deleted</div>
 <hr />
 <br>
+<nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" name="searchBox" type="search" placeholder="Search" aria-label="Search" 
+      [(ngModel)]="searchText" >
+    </form>
+</nav>
+
 <div class="list-group">
-    <a *ngFor="let user of users" class="list-group-item list-group-item-action flex-column align-items-start">
+    <a *ngFor="let user of users | filter: searchText" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="row">
             <div class="col-9 col-sm-8 col-md-8 col-lg-9">
                 <div class="d-flex w-100 justify-content-between">

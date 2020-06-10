@@ -21,6 +21,7 @@ export class AddUserComponent implements OnInit {
   editedUser: UserDTO;
   users : UserDTO[];
   buttonAction = 'Add';
+  searchText = '';
 
   constructor(private userService: UserService) { }
 
