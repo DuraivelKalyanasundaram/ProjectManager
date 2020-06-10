@@ -51,4 +51,15 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
+    @Override
+    public void deleteUser(Long id) {
+        logger.info("Beginning to delete user id " + id);
+        Optional<User> retrievedUserOptional = this.userRepository.findById(id);
+        if (retrievedUserOptional.isPresent()) {
+            User retrievedUser = retrievedUserOptional.get();
+            logger.info("User retrieved for id " + id + " is " + retrievedUser);
+            this.userRepository.deleteById(id);
+        }
+    }
 }

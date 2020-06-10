@@ -44,4 +44,10 @@ public class UserController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUser (@PathVariable("id") Long id) {
+        this.userService.deleteUser(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }

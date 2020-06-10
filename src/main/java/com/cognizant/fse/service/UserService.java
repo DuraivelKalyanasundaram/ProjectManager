@@ -9,4 +9,5 @@ public interface UserService {
     User addUser (User user) throws EmployeeExistsException;
     List<User> getUsers();
     User updateUser (User user);
+    void deleteUser(Long id);
 }

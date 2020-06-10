@@ -107,4 +107,22 @@ public class UserServiceTest {
         Assertions.assertNull(persistedUser);
     }
 
+    @Test
+    public void deleteUser_test1() throws Exception {
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
+        userService.addUser(user1);
+        User retrievedUser = this.userRepository.findAll().get(0);
+        this.userService.deleteUser(retrievedUser.getId());
+
+        Assertions.assertEquals(0, this.userService.getUsers().size());
+    }
+
+    @Test
+    public void deleteUser_test2() throws Exception {
+        Assertions.assertDoesNotThrow(() -> {
+            this.userService.deleteUser(1L);
+        });
+        Assertions.assertEquals(0, this.userService.getUsers().size());
+    }
+
 }
