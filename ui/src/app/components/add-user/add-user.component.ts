@@ -105,4 +105,19 @@ export class AddUserComponent implements OnInit {
       console.log (' Error ' + error)
     })
   }
+
+  sortBy(event) {
+    console.log ('Sort on ' + event);
+    switch(event) {
+      case 'firstname':
+        this.users.sort((a,b) => a.firstName.localeCompare(b.firstName));
+        break;
+      case 'lastname':
+        this.users.sort((a,b) => a.lastName.localeCompare(b.lastName));
+        break;
+      case 'empId': 
+      this.users.sort((a,b) => a.employeeId.localeCompare(b.employeeId));
+        break;
+    }
+  }
 }

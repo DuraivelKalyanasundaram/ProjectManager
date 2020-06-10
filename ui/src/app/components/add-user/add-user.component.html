@@ -44,14 +44,25 @@
 <hr />
 <br>
 <nav class="navbar navbar-light bg-light">
-    <form class="form-inline">
-      <input class="form-control mr-sm-2" name="searchBox" type="search" placeholder="Search" aria-label="Search" 
-      [(ngModel)]="searchText" >
+    <form class="form-inline d-flex justify-content-between">
+        <div class="row">
+            <div class="col-12 col-sm-5 col-md-4">
+                <input class="form-control mr-sm-2" name="searchBox" type="search" placeholder="Search"
+                    aria-label="Search" [(ngModel)]="searchText">
+            </div>
+            <div class="col-12 col-sm-12 col-md-8">
+                <label class="form-control" style="border: none; background: none;">Sort By : </label>
+                <button type="button" class="form-control btn btn-secondary btn-sm" (click)="sortBy('firstname')">First Name</button>
+                <button type="button" class="form-control btn btn-secondary btn-sm" (click)="sortBy('lastname')">Last Name</button>
+                <button type="button" class="form-control btn btn-secondary btn-sm" (click)="sortBy('empId')">Employee Id</button>
+            </div>
+        </div>
     </form>
 </nav>
 
 <div class="list-group">
-    <a *ngFor="let user of users | filter: searchText" class="list-group-item list-group-item-action flex-column align-items-start">
+    <a *ngFor="let user of users | filter: searchText"
+        class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="row">
             <div class="col-9 col-sm-8 col-md-8 col-lg-9">
                 <div class="d-flex w-100 justify-content-between">
