@@ -80,4 +80,31 @@ public class UserServiceTest {
         Assertions.assertEquals(2, this.userService.getUsers().size());
     }
 
+    @Test
+    public void updateUser_test1() throws Exception {
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
+        userService.addUser(user1);
+
+        User retrievedUser = this.userRepository.findAll().get(0);
+        retrievedUser.setFirstName("name1");
+        retrievedUser.setLastName("name1");
+        retrievedUser.setEmployeeId("123457");
+
+        User persistedUser = userService.updateUser(retrievedUser);
+
+        Assertions.assertEquals(1, this.userService.getUsers().size());
+        Assertions.assertEquals("name1", persistedUser.getFirstName());
+        Assertions.assertEquals("name1", persistedUser.getLastName());
+        Assertions.assertEquals("123457", persistedUser.getEmployeeId());
+    }
+
+    @Test
+    public void updateUser_test2() throws Exception {
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
+
+        User persistedUser = userService.updateUser(user1);
+
+        Assertions.assertNull(persistedUser);
+    }
+
 }

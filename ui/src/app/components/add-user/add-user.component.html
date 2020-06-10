@@ -31,31 +31,29 @@
         <div class="col-sm-2 col-md-4 col-lg-3"></div>
         <div class="col-sm-3 col-md-2 col-lg-3">
             <button type="submit" class="btn btn-primary" [disabled]="!newUserForm.form.valid"
-                (click)="addNewUser(newUserForm)">Add</button>
+                (click)="useraction(newUserForm)">{{buttonAction}}</button>
         </div>
         <div class="col-sm-3 col-md-2 col-lg-2">
             <button type="reset" class="btn btn-primary">Reset</button>
         </div>
     </div>
 </form>
-<div *ngIf="userAdded" class="alert alert-success" role="alert">
-    User has been successfully added
-  </div>
+<div *ngIf="userAdded" class="alert alert-success" role="alert">User has been successfully added</div>
+<div *ngIf="userUpdated" class="alert alert-success" role="alert">User has been successfully updated</div>
 <hr />
 <br>
 <div class="list-group">
     <a *ngFor="let user of users" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="row">
-            <div class="col-sm-7 col-md-8 col-lg-9">
+            <div class="col-9 col-sm-8 col-md-8 col-lg-9">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{{user.firstName}} {{user.lastName}}</h5>
                 </div>
                 <p class="mb-1">Employee ID - {{user.employeeId}}</p>
-                <p class="mb-1">Projects & Tasks will be listed here.</p>
             </div>
-            <div class="col-sm-5 col-md-4 col-lg-3">
+            <div class="col-3 col-sm-4 col-md-4 col-lg-3">
                 <div class="d-flex flex-column">
-                    <button class="btn btn-secondary btn-sm">Edit</button>
+                    <button class="btn btn-secondary btn-sm" (click)="editUser(user)">Edit</button>
                     <button class="btn btn-secondary btn-sm">Delete</button>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../model/User';
+import { UserDTO } from '../model/UserDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,10 @@ export class UserService {
 
   getUsers() {
     return this.httpClient.get(this.BASE_URL);
+  }
+
+  updateUser(user: UserDTO) {
+    return this.httpClient.put(this.BASE_URL + '/' + user.id, JSON.stringify(user), this.httpOptions);
   }
 
 }

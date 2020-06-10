@@ -35,4 +35,13 @@ public class UserController {
         return this.userService.getUsers();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity updateuser (@PathVariable ("id") Long id, @RequestBody User user) {
+        User persistedUser = this.userService.updateUser(user);
+        if (persistedUser != null) {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+
 }

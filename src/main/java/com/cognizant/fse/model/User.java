@@ -33,24 +33,48 @@ public class User {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getEmployeeId() {
         return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
     public Set<Project> getProjects() {
         return projects;
     }
 
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
     public Set<Task> getTasks() {
         return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
@@ -60,8 +84,6 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", employeeId='" + employeeId + '\'' +
-                ", projects=" + projects +
-                ", tasks=" + tasks +
                 '}';
     }
 }
