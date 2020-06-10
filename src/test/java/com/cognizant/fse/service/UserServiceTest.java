@@ -45,7 +45,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void addUser_Test3() throws Exception {
+    public void addUser_test3() throws Exception {
         User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
         User user2 = new User(2L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
 
@@ -55,6 +55,29 @@ public class UserServiceTest {
                 });
         Assertions.assertNotNull(returnedUser1);
 
+    }
+
+    @Test
+    public void getUsers_test1() {
+        Assertions.assertEquals(0, this.userService.getUsers().size());
+    }
+
+    @Test
+    public void getUsers_test2() throws Exception{
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
+        userService.addUser(user1);
+        Assertions.assertEquals(1, this.userService.getUsers().size());
+    }
+
+    @Test
+    public void getUsers_test3() throws Exception {
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
+        User user2 = new User(2L, "name", "name", "1234567", new HashSet<>(), new HashSet<>());
+
+        User returnedUser1 = userService.addUser(user1);
+        User returnedUser2 = userService.addUser(user2);
+
+        Assertions.assertEquals(2, this.userService.getUsers().size());
     }
 
 }
