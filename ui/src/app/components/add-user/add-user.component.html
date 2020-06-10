@@ -44,13 +44,13 @@
 <hr />
 <br>
 <nav class="navbar navbar-light bg-light">
-    <form class="form-inline d-flex justify-content-between">
+    <form class="form-inline">
         <div class="row">
-            <div class="col-12 col-sm-5 col-md-4">
-                <input class="form-control mr-sm-2" name="searchBox" type="search" placeholder="Search"
+            <div class="col-12 col-sm-5 col-md-4 col-lg-4" style="padding-right: 0px;">
+                <input class="form-control mr-sm-2" name="searchBox" type="search" placeholder="Search..."
                     aria-label="Search" [(ngModel)]="searchText">
             </div>
-            <div class="col-12 col-sm-12 col-md-8">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8" style="padding-right: 0px;">
                 <label class="form-control" style="border: none; background: none;">Sort By : </label>
                 <button type="button" class="form-control btn btn-secondary btn-sm" (click)="sortBy('firstname')">First Name</button>
                 <button type="button" class="form-control btn btn-secondary btn-sm" (click)="sortBy('lastname')">Last Name</button>
