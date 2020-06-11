@@ -36,6 +36,19 @@
                 [disabled]="!startEndDateChecked" [(ngModel)]="endDateSelected">
         </div>
     </div>
+
+    <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="formControlRange">Priority : </label>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-5"><small>0</small></div>
+                <div class="col-sm-7" style="text-align: right;"><small>30</small></div>
+            </div>
+            <div class="row">
+                <input type="range" class="form-control-range" id="formControlRange" min="0" max="30">
+            </div>
+        </div>
+      </div>
 </form>
 
 <hr />
