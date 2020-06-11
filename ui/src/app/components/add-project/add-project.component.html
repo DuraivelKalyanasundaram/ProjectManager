@@ -1,1 +1,42 @@
-<p>add-project works!</p>
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-6">
+        <p class="h3">Add Project</p>
+    </div>
+</div>
+<br>
+<form ngNativeValidate #newProjectForm="ngForm">
+    <div class="form-group row">
+        <label for="projectTitle" class="col-sm-2 col-form-label">Project :</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="projectTitle" name="projectTitle" [(ngModel)]="projectTitle"
+                placeholder="" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="checkbox" id='startEndDate' name="startEndDate" [(ngModel)]="startEndDateChecked">
+                    </div>
+                    <label for="startEndDate" style="margin-bottom: 0px;">Set Start and End Date</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label for="startDate" style="margin-bottom: 0px; margin-right: 0.5rem;">Start Date : </label>
+            <input type="date" #startDate name="startDate" id="startDate" placeholder="Start Date" min="1972-12-31" style="width: 150px;" 
+                [disabled]="!startEndDateChecked" [(ngModel)]="startDateSelected" (change)="startDateSelect()">
+        </div>
+        <div class="col-sm-3">
+            <label for="endDate" style="margin-bottom: 0px; margin-right: 0.5rem;">End Date : </label>
+            <input type="date" #endDate name="endDate" id="endDate" placeholder="End Date" max="2020-6-22" style="width: 150px;" 
+                [disabled]="!startEndDateChecked" [(ngModel)]="endDateSelected">
+        </div>
+    </div>
+</form>
+
+<hr />
+<br>
