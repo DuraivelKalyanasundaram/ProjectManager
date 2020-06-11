@@ -46,12 +46,23 @@
                 <div class="col-sm-7" style="text-align: right;"><small>30</small></div>
             </div>
             <div class="row">
-                <input type="range" class="form-control-range" id="formControlRange" name="formControlRange" min="0" max="30" [(ngModel)]="priorityValue">
+                <input type="range" class="form-control-range" id="formControlRange" name="formControlRange" min="0"
+                    max="30" [(ngModel)]="priorityValue">
             </div>
         </div>
     </div>
     <div class="form-group row">
 
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-5 col-md-7 col-lg-6"></div>
+        <div class="col-sm-4 col-md-2 col-lg-3">
+            <button type="submit" class="btn btn-primary" [disabled]="!newProjectForm.form.valid"
+                (click)="useraction(newProjectForm)">{{buttonAction}}</button>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <button type="reset" class="btn btn-primary">Reset</button>
+        </div>
     </div>
 </form>
 

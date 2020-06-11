@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-project',
@@ -8,6 +9,7 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angula
 export class AddProjectComponent implements OnInit, AfterViewInit {
 
   projectTitle = '';
+  buttonAction = 'Add'
   startEndDateChecked = false;
   @ViewChild('startDate') startDate : ElementRef;
   @ViewChild('endDate') endDate : ElementRef;
@@ -32,6 +34,10 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
     const newEndDate = this.getTomorrowFromDate(new Date(this.startDateSelected));
     this.endDateSelected = newEndDate;
     this.endDate.nativeElement.setAttribute('min', newEndDate);
+  }
+
+  useraction(projectForm: NgForm) {
+
   }
 
   private getToday() {
