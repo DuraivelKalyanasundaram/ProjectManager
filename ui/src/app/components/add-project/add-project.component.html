@@ -27,28 +27,32 @@
         </div>
         <div class="col-sm-3">
             <label for="startDate" style="margin-bottom: 0px; margin-right: 0.5rem;">Start Date : </label>
-            <input type="date" #startDate name="startDate" id="startDate" placeholder="Start Date" min="1972-12-31" style="width: 150px;" 
-                [disabled]="!startEndDateChecked" [(ngModel)]="startDateSelected" (change)="startDateSelect()">
+            <input type="date" #startDate name="startDate" id="startDate" placeholder="Start Date" min="1972-12-31"
+                style="width: 150px;" [disabled]="!startEndDateChecked" [(ngModel)]="startDateSelected"
+                (change)="startDateSelect()">
         </div>
         <div class="col-sm-3">
             <label for="endDate" style="margin-bottom: 0px; margin-right: 0.5rem;">End Date : </label>
-            <input type="date" #endDate name="endDate" id="endDate" placeholder="End Date" max="2020-6-22" style="width: 150px;" 
-                [disabled]="!startEndDateChecked" [(ngModel)]="endDateSelected">
+            <input type="date" #endDate name="endDate" id="endDate" placeholder="End Date" max="2020-6-22"
+                style="width: 150px;" [disabled]="!startEndDateChecked" [(ngModel)]="endDateSelected">
         </div>
     </div>
 
     <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="formControlRange">Priority : </label>
+        <label class="col-sm-2 col-form-label" for="formControlRange">Priority : </label>
         <div class="col-sm-9">
             <div class="row">
                 <div class="col-sm-5"><small>0</small></div>
                 <div class="col-sm-7" style="text-align: right;"><small>30</small></div>
             </div>
             <div class="row">
-                <input type="range" class="form-control-range" id="formControlRange" min="0" max="30">
+                <input type="range" class="form-control-range" id="formControlRange" name="formControlRange" min="0" max="30" [(ngModel)]="priorityValue">
             </div>
         </div>
-      </div>
+    </div>
+    <div class="form-group row">
+
+    </div>
 </form>
 
 <hr />

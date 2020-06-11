@@ -11,6 +11,7 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
   startEndDateChecked = false;
   @ViewChild('startDate') startDate : ElementRef;
   @ViewChild('endDate') endDate : ElementRef;
+  priorityValue = 30;
   startDateSelected;
   endDateSelected;
 
