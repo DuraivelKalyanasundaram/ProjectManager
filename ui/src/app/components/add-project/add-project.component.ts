@@ -1,5 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/services/user.service';
+import { UserDTO } from 'src/app/model/UserDTO';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-add-project',
@@ -9,17 +13,22 @@ import { NgForm } from '@angular/forms';
 export class AddProjectComponent implements OnInit, AfterViewInit {
 
   projectTitle = '';
+  manager = '';
   buttonAction = 'Add'
   startEndDateChecked = false;
   @ViewChild('startDate') startDate : ElementRef;
   @ViewChild('endDate') endDate : ElementRef;
-  priorityValue = 30;
+  priorityValue = 0;
   startDateSelected;
   endDateSelected;
+  closeResult: string;
+  users: UserDTO[]
+  selectedManager: UserDTO;
 
-  constructor() { }
+  constructor(private modalService: NgbModal, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.getUsers();
   }
 
   ngAfterViewInit() {
@@ -36,8 +45,39 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
     this.endDate.nativeElement.setAttribute('min', newEndDate);
   }
 
+  getUsers() {
+    this.userService.getUsers().subscribe(data => {
+      this.users = data as UserDTO[];
+    })
+  }
+
+  onSelectedManagerChange(user: UserDTO){
+    this.selectedManager = user;
+  }
+
   useraction(projectForm: NgForm) {
 
+  }
+
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      this.manager = this.selectedManager.firstName + ' ' + this.selectedManager.lastName;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 
   private getToday() {

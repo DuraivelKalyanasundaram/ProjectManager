@@ -9,6 +9,7 @@ import { AddTaskComponent } from './components/add-task/add-task.component';
 import { ViewTaskComponent } from './components/view-task/view-task.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Ng2SearchPipeModule } from 'ng2-search-filter'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter'
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

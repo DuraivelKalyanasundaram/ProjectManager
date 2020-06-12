@@ -52,7 +52,16 @@
         </div>
     </div>
     <div class="form-group row">
-
+        <label class="col-sm-2 col-form-label" for="formControlRange">Manager : </label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" id="manager" name="manager" [(ngModel)]="manager" placeholder=""
+                required disabled>
+        </div>
+        <div class="col-sm-2" style="text-align: right;">
+            <button type="button" class="btn btn-secondary" (click)="open(searchManagerModel)">
+                Search
+            </button>
+        </div>
     </div>
     <div class="form-group row">
         <div class="col-sm-5 col-md-7 col-lg-6"></div>
@@ -66,5 +75,35 @@
     </div>
 </form>
 
+<ng-template #searchManagerModel let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Search Manager</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="border: 0px;"  *ngFor="let user of users">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="radio" name="radiogroup" 
+                            aria-label="Radio button for following text input"
+                            (change)="onSelectedManagerChange(user)">
+                        </div>
+                    </div>
+                    <label class="form-control" aria-label="Text input with radio button" disabled>
+                        {{user.firstName}} {{user.lastName}}
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>
 <hr />
 <br>
