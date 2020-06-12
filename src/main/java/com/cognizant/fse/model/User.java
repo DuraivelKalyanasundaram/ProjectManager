@@ -12,20 +12,20 @@ public class User {
     private String firstName;
     private String lastName;
     private String employeeId;
-    @OneToMany(mappedBy = "id")
-    private Set<Project> projects = new HashSet<>();
+
+    @OneToMany(mappedBy = "manager" , cascade = CascadeType.REMOVE)
+    private Set<Project> projects;
     @OneToMany(mappedBy = "id")
     private Set<Task> tasks = new HashSet<>();
 
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String employeeId, Set<Project> projects, Set<Task> tasks) {
+    public User(Long id, String firstName, String lastName, String employeeId, Set<Task> tasks) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.employeeId = employeeId;
-        this.projects = projects;
         this.tasks = tasks;
     }
 
@@ -61,20 +61,20 @@ public class User {
         this.employeeId = employeeId;
     }
 
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
-    }
-
     public Set<Task> getTasks() {
         return tasks;
     }
 
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 
     @Override

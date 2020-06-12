@@ -24,6 +24,7 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
   closeResult: string;
   users: UserDTO[]
   selectedManager: UserDTO;
+  updateMode = false;
 
   constructor(private modalService: NgbModal, private userService: UserService) { }
 
@@ -56,7 +57,11 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
   }
 
   useraction(projectForm: NgForm) {
+    if(this.updateMode) {
 
+    } else {
+      
+    }
   }
 
 

@@ -27,15 +27,15 @@ public class UserServiceTest {
 
     @Test
     public void adduser_test1() throws Exception{
-        User user = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
+        User user = new User(1L, "name", "name", "123456", new HashSet<>());
         User returnedUser = userService.addUser(user);
         Assertions.assertNotNull(returnedUser);
     }
 
     @Test
     public void addUser_test2() throws Exception {
-        User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
-        User user2 = new User(2L, "name", "name", "1234567", new HashSet<>(), new HashSet<>());
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>());
+        User user2 = new User(2L, "name", "name", "1234567", new HashSet<>());
 
         User returnedUser1 = userService.addUser(user1);
         User returnedUser2 = userService.addUser(user2);
@@ -46,8 +46,8 @@ public class UserServiceTest {
 
     @Test
     public void addUser_test3() throws Exception {
-        User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
-        User user2 = new User(2L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>());
+        User user2 = new User(2L, "name", "name", "123456", new HashSet<>());
 
         User returnedUser1 = userService.addUser(user1);
         Assertions.assertThrows(EmployeeExistsException.class, () -> {
@@ -64,15 +64,15 @@ public class UserServiceTest {
 
     @Test
     public void getUsers_test2() throws Exception{
-        User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>());
         userService.addUser(user1);
         Assertions.assertEquals(1, this.userService.getUsers().size());
     }
 
     @Test
     public void getUsers_test3() throws Exception {
-        User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
-        User user2 = new User(2L, "name", "name", "1234567", new HashSet<>(), new HashSet<>());
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>());
+        User user2 = new User(2L, "name", "name", "1234567", new HashSet<>());
 
         User returnedUser1 = userService.addUser(user1);
         User returnedUser2 = userService.addUser(user2);
@@ -82,7 +82,7 @@ public class UserServiceTest {
 
     @Test
     public void updateUser_test1() throws Exception {
-        User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>());
         userService.addUser(user1);
 
         User retrievedUser = this.userRepository.findAll().get(0);
@@ -100,7 +100,7 @@ public class UserServiceTest {
 
     @Test
     public void updateUser_test2() throws Exception {
-        User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>());
 
         User persistedUser = userService.updateUser(user1);
 
@@ -109,7 +109,7 @@ public class UserServiceTest {
 
     @Test
     public void deleteUser_test1() throws Exception {
-        User user1 = new User(1L, "name", "name", "123456", new HashSet<>(), new HashSet<>());
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>());
         userService.addUser(user1);
         User retrievedUser = this.userRepository.findAll().get(0);
         this.userService.deleteUser(retrievedUser.getId());

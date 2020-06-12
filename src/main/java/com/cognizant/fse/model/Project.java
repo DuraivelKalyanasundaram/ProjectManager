@@ -1,9 +1,6 @@
 package com.cognizant.fse.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -15,16 +12,20 @@ public class Project {
     private Date startDate;
     private Date endDate;
     int priority;
+    @ManyToOne
+    @JoinColumn(name = "manager_id" ,nullable = true)
+    private User manager;
 
     public Project() {
     }
 
-    public Project(Long id, String name, Date startDate, Date endDate, int priority) {
+    public Project(Long id, String name, Date startDate, Date endDate, int priority, User manager) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.priority = priority;
+        this.manager = manager;
     }
 
     public Long getId() {
@@ -65,5 +66,25 @@ public class Project {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", priority=" + priority +
+                ", manager=" + manager +
+                '}';
     }
 }

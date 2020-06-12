@@ -13,8 +13,8 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "parentTask_id", nullable = true)
     private ParentTask parentTask;
-    @OneToMany(mappedBy = "id")
-    private Set<Project> projects = new HashSet<>();
+//    @OneToMany(mappedBy = "id")
+//    private Set<Project> projects = new HashSet<>();
     private String name;
     private Date startDate;
     private Date endDate;
@@ -24,23 +24,14 @@ public class Task {
     public Task() {
     }
 
-    public Task(Long id, ParentTask parentTask, Set<Project> projects, String name, Date startDate, Date endDate, int priority, TaskStatus status) {
+    public Task(Long id, ParentTask parentTask, String name, Date startDate, Date endDate, int priority, TaskStatus status) {
         this.id = id;
         this.parentTask = parentTask;
-        this.projects = projects;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.priority = priority;
         this.status = status;
-    }
-
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
     }
 
     public ParentTask getParentTask() {
