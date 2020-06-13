@@ -4,6 +4,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user.service';
 import { UserDTO } from 'src/app/model/UserDTO';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Project } from 'src/app/model/Project';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-add-project',
@@ -26,8 +28,13 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
   selectedManager: UserDTO;
   updateMode = false;
   searchText = '';
+  projectAdded = false;
+  projectUpdated = false;
+  projectDeleted = false;
 
-  constructor(private modalService: NgbModal, private userService: UserService) { }
+  constructor(private modalService: NgbModal, 
+              private userService: UserService,
+              private projectService: ProjectService) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -53,6 +60,10 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
     })
   }
 
+  getProjects() {
+    
+  }
+
   onSelectedManagerChange(user: UserDTO) {
     this.selectedManager = user;
   }
@@ -61,8 +72,19 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
     if (this.updateMode) {
 
     } else {
-
+      const project = new Project(this.projectTitle, this.startDateSelected, this.endDateSelected, this.priorityValue.toString(), this.selectedManager);
+      this.projectService.addProject(project).subscribe(data => {
+        console.log ('Project added ' + data);
+        this.projectAdded = true;
+        setTimeout(() => {
+          this.projectAdded = false
+        }, 5000);
+        this.getProjects();
+      }, error => {
+        console.error('Error ' + error);
+      })
     }
+    projectForm.reset();
   }
 
 

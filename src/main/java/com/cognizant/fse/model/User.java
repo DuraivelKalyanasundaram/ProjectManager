@@ -1,5 +1,8 @@
 package com.cognizant.fse.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +17,7 @@ public class User {
     private String employeeId;
 
     @OneToMany(mappedBy = "manager" , cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private Set<Project> projects;
     @OneToMany(mappedBy = "id")
     private Set<Task> tasks = new HashSet<>();

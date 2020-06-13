@@ -74,7 +74,11 @@ public class ProjectControllerTest {
         this.mockMvc.perform(projectBuilder)
                     .andExpect(MockMvcResultMatchers.status().isOk());
 
+        MockHttpServletRequestBuilder getProjectsBuilder = MockMvcRequestBuilders.get("/projects");
+        this.mockMvc.perform(getProjectsBuilder)
+                        .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
+
 
 }

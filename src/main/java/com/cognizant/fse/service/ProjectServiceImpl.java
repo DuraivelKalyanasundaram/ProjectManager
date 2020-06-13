@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -23,5 +24,10 @@ public class ProjectServiceImpl implements ProjectService {
         }
         Project persistedProject = projectRepository.save(project);
         return persistedProject;
+    }
+
+    @Override
+    public List<Project> getProjects() {
+        return this.projectRepository.findAll();
     }
 }

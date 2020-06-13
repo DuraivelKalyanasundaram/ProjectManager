@@ -66,7 +66,7 @@
     <div class="form-group row">
         <div class="col-sm-5 col-md-7 col-lg-6"></div>
         <div class="col-sm-4 col-md-2 col-lg-3">
-            <button type="submit" class="btn btn-primary" [disabled]="!newProjectForm.form.valid || manager===''"
+            <button type="submit" class="btn btn-primary" [disabled]="!newProjectForm.form.valid || manager==='' || startDateSelected || endDateSelected"
                 (click)="useraction(newProjectForm)">{{buttonAction}}</button>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
@@ -109,5 +109,10 @@
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
     </div>
 </ng-template>
+
+<div *ngIf="projectAdded" class="alert alert-success" role="alert">Project is successfully added</div>
+<div *ngIf="projectUpdated" class="alert alert-success" role="alert">Project is successfully updated</div>
+<div *ngIf="projectDeleted" class="alert alert-success" role="alert">Project is successfully deleted</div>
+
 <hr />
 <br>

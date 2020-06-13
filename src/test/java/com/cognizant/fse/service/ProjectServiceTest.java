@@ -61,6 +61,34 @@ public class ProjectServiceTest {
         Assertions.assertEquals("name", persistedProject.getManager().getFirstName());
         Assertions.assertEquals("name", persistedProject.getManager().getLastName());
         Assertions.assertEquals("123456", persistedProject.getManager().getEmployeeId());
+
+        Assertions.assertEquals(1, this.projectService.getProjects().size());
+    }
+
+    @Test
+    public void getProjects_test1() {
+        Assertions.assertEquals(0, this.projectService.getProjects().size());
+    }
+
+    @Test
+    public void getProjects_test2() throws EmployeeExistsException, ParseException {
+        User user1 = new User(1L, "name", "name", "123456", new HashSet<>());
+        User returnedUser1 = userService.addUser(user1);
+
+        Project project = new Project(1L, "New Project", new Date(),
+                                        new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
+                                        30,
+                                        returnedUser1);
+        Project project2 = new Project(2L, "New Project",
+                                        new Date(),
+                                        new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
+                                        15,
+                                        returnedUser1);
+        Project persistedProject = this.projectService.addProject(project);
+        Project persistedProject2 = this.projectService.addProject(project2);
+        Assertions.assertNotNull(persistedProject);
+        Assertions.assertNotNull(persistedProject2);
+        Assertions.assertEquals(2, this.projectService.getProjects().size());
     }
 
 }

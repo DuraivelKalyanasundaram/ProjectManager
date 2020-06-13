@@ -1,5 +1,8 @@
 package com.cognizant.fse.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,6 +17,7 @@ public class Project {
     int priority;
     @ManyToOne
     @JoinColumn(name = "manager_id" ,nullable = false)
+    @JsonBackReference
     private User manager;
 
     public Project() {

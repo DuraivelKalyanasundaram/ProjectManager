@@ -5,10 +5,9 @@ import com.cognizant.fse.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
@@ -24,6 +23,11 @@ public class ProjectController {
             return new ResponseEntity<Project>(persistedProject, HttpStatus.OK);
         }
         return new ResponseEntity<Project>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping
+    public List<Project> getProjects() {
+        return this.projectService.getProjects();
     }
 
 }
