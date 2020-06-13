@@ -13,7 +13,7 @@ public class Project {
     private Date endDate;
     int priority;
     @ManyToOne
-    @JoinColumn(name = "manager_id" ,nullable = true)
+    @JoinColumn(name = "manager_id" ,nullable = false)
     private User manager;
 
     public Project() {
