@@ -7,7 +7,7 @@ import { Project } from '../model/Project';
 })
 export class ProjectService {
 
-  private BASE_URL = 'http://localhost:9090/users';
+  private BASE_URL = 'http://localhost:9090/projects';
   private httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
   constructor(private httpClient: HttpClient) { }
@@ -16,7 +16,7 @@ export class ProjectService {
     return this.httpClient.post(this.BASE_URL, JSON.stringify(project), this.httpOptions);
   }
 
-  getProject() {
+  getProjects() {
     return this.httpClient.get(this.BASE_URL);
   }
 }

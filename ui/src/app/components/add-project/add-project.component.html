@@ -19,7 +19,7 @@
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                        <input type="checkbox" id='startEndDate' name="startEndDate" [(ngModel)]="startEndDateChecked">
+                        <input type="checkbox" id='startEndDate' name="startEndDate" [(ngModel)]="startEndDateChecked" (change)="startDateEndDateSelect()">
                     </div>
                     <label for="startEndDate" style="margin-bottom: 0px;">Set Start and End Date</label>
                 </div>
@@ -27,13 +27,13 @@
         </div>
         <div class="col-sm-3">
             <label for="startDate" style="margin-bottom: 0px; margin-right: 0.5rem;">Start Date : </label>
-            <input type="date" #startDate name="startDate" id="startDate" placeholder="Start Date" min="1972-12-31"
+            <input type="date" #startDate name="startDate" id="startDate" placeholder="Start Date"
                 style="width: 150px;" [disabled]="!startEndDateChecked" [(ngModel)]="startDateSelected"
                 (change)="startDateSelect()">
         </div>
         <div class="col-sm-3">
             <label for="endDate" style="margin-bottom: 0px; margin-right: 0.5rem;">End Date : </label>
-            <input type="date" #endDate name="endDate" id="endDate" placeholder="End Date" max="2020-6-22"
+            <input type="date" #endDate name="endDate" id="endDate" placeholder="End Date"
                 style="width: 150px;" [disabled]="!startEndDateChecked" [(ngModel)]="endDateSelected">
         </div>
     </div>
@@ -66,7 +66,7 @@
     <div class="form-group row">
         <div class="col-sm-5 col-md-7 col-lg-6"></div>
         <div class="col-sm-4 col-md-2 col-lg-3">
-            <button type="submit" class="btn btn-primary" [disabled]="!newProjectForm.form.valid || manager==='' || startDateSelected || endDateSelected"
+            <button type="submit" class="btn btn-primary" [disabled]="!newProjectForm.form.valid || manager==='' || !startEndDateChecked"
                 (click)="useraction(newProjectForm)">{{buttonAction}}</button>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">

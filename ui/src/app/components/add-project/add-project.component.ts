@@ -6,6 +6,7 @@ import { UserDTO } from 'src/app/model/UserDTO';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Project } from 'src/app/model/Project';
 import { ProjectService } from 'src/app/services/project.service';
+import { ProjectDTO } from 'src/app/model/ProjectDTO';
 
 @Component({
   selector: 'app-add-project',
@@ -31,6 +32,7 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
   projectAdded = false;
   projectUpdated = false;
   projectDeleted = false;
+  projects: ProjectDTO[];
 
   constructor(private modalService: NgbModal, 
               private userService: UserService,
@@ -38,14 +40,25 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getUsers();
+    this.getProjects();
   }
 
   ngAfterViewInit() {
-
     const today = this.getToday();
+    const tomorrow = this.getTomorrow();
     this.startDate.nativeElement.setAttribute('value', today);
     this.startDate.nativeElement.setAttribute('min', today);
-    this.endDate.nativeElement.setAttribute('value', this.getTomorrow());
+    this.endDate.nativeElement.setAttribute('value', tomorrow);
+  }
+
+  startDateEndDateSelect() {
+    if(this.startEndDateChecked) {
+      const today = this.getToday();
+      const tomorrow = this.getTomorrow();
+      this.startDateSelected = today;
+      this.endDateSelected = tomorrow;
+      this.endDate.nativeElement.setAttribute('min', tomorrow);
+    }
   }
 
   startDateSelect() {
@@ -61,7 +74,11 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
   }
 
   getProjects() {
-    
+    this.projectService.getProjects().subscribe(data => {
+      this.projects = data as ProjectDTO[];
+    }, error => {
+      console.error('Error ' + error);
+    })
   }
 
   onSelectedManagerChange(user: UserDTO) {
@@ -72,6 +89,8 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
     if (this.updateMode) {
 
     } else {
+      console.log(this.startDateSelected);
+      console.log(this.endDateSelected);
       const project = new Project(this.projectTitle, this.startDateSelected, this.endDateSelected, this.priorityValue.toString(), this.selectedManager);
       this.projectService.addProject(project).subscribe(data => {
         console.log ('Project added ' + data);
