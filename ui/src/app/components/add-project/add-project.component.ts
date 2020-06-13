@@ -16,8 +16,8 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
   manager = '';
   buttonAction = 'Add'
   startEndDateChecked = false;
-  @ViewChild('startDate') startDate : ElementRef;
-  @ViewChild('endDate') endDate : ElementRef;
+  @ViewChild('startDate') startDate: ElementRef;
+  @ViewChild('endDate') endDate: ElementRef;
   priorityValue = 0;
   startDateSelected;
   endDateSelected;
@@ -25,6 +25,7 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
   users: UserDTO[]
   selectedManager: UserDTO;
   updateMode = false;
+  searchText = '';
 
   constructor(private modalService: NgbModal, private userService: UserService) { }
 
@@ -33,7 +34,7 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    
+
     const today = this.getToday();
     this.startDate.nativeElement.setAttribute('value', today);
     this.startDate.nativeElement.setAttribute('min', today);
@@ -52,23 +53,25 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
     })
   }
 
-  onSelectedManagerChange(user: UserDTO){
+  onSelectedManagerChange(user: UserDTO) {
     this.selectedManager = user;
   }
 
   useraction(projectForm: NgForm) {
-    if(this.updateMode) {
+    if (this.updateMode) {
 
     } else {
-      
+
     }
   }
 
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      this.manager = this.selectedManager.firstName + ' ' + this.selectedManager.lastName;
+      if (this.selectedManager) {
+        this.manager = this.selectedManager.firstName + ' ' + this.selectedManager.lastName;
+      }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -81,7 +84,7 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
 
