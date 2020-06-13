@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Project } from '../model/Project';
+import { ProjectDTO } from '../model/ProjectDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class ProjectService {
   }
 
   getProjects() {
-    return this.httpClient.get(this.BASE_URL);
+    return this.httpClient.get<ProjectDTO[]>(this.BASE_URL);
+  }
+
+  updateProject(project: ProjectDTO) {
+    return this.httpClient.put(this.BASE_URL + '/' + project.id, JSON.stringify(project), this.httpOptions);
   }
 }

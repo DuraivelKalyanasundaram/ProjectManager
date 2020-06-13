@@ -17,7 +17,7 @@ public class User {
     private String employeeId;
 
     @OneToMany(mappedBy = "manager" , cascade = CascadeType.REMOVE)
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Project> projects;
     @OneToMany(mappedBy = "id")
     private Set<Task> tasks = new HashSet<>();

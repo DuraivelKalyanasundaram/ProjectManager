@@ -17,7 +17,7 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
 
   projectTitle = '';
   manager = '';
-  buttonAction = 'Add'
+  buttonAction = 'Add';
   startEndDateChecked = false;
   @ViewChild('startDate') startDate: ElementRef;
   @ViewChild('endDate') endDate: ElementRef;
@@ -33,6 +33,7 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
   projectUpdated = false;
   projectDeleted = false;
   projects: ProjectDTO[];
+  selectedProject: ProjectDTO;
 
   constructor(private modalService: NgbModal, 
               private userService: UserService,
@@ -87,11 +88,22 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
 
   useraction(projectForm: NgForm) {
     if (this.updateMode) {
-
+      this.selectedProject.name = this.projectTitle;
+      this.selectedProject.startDate = this.startDateSelected;
+      this.selectedProject.endDate = this.endDateSelected;
+      this.selectedProject.priority = this.priorityValue.toString();
+      this.selectedProject.manager = this.selectedManager;
+      this.projectService.updateProject(this.selectedProject).subscribe(data => {
+        this.projectUpdated = true;
+        setTimeout(() => {
+          this.projectUpdated = false;
+        }, 5000);
+        this.getProjects();
+      }, error => {
+        console.error('Error ' + error);
+      })
     } else {
-      console.log(this.startDateSelected);
-      console.log(this.endDateSelected);
-      const project = new Project(this.projectTitle, this.startDateSelected, this.endDateSelected, this.priorityValue.toString(), this.selectedManager);
+      const project = new Project(this.projectTitle, this.startDateSelected, this.endDateSelected, this.priorityValue.toString(), this.selectedManager);  
       this.projectService.addProject(project).subscribe(data => {
         console.log ('Project added ' + data);
         this.projectAdded = true;
@@ -103,11 +115,26 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
         console.error('Error ' + error);
       })
     }
+    this.buttonAction = 'Add';
     projectForm.reset();
   }
 
+  editProject(project: ProjectDTO) {
+    console.log('Editing project ' + JSON.stringify(project));
+    this.updateMode = true;
+    this.projectTitle = project.name;
+    this.startEndDateChecked = true;
+    this.startDateSelected = project.startDate.slice(0, 10);
+    this.endDateSelected = project.endDate.slice(0,10);
+    this.priorityValue = Number(project.priority);
+    this.selectedManager = project.manager;
+    this.manager = this.selectedManager.firstName + ' ' + this.selectedManager.lastName;
+    this.selectedProject = project;
+    this.buttonAction = 'Update';
+  }
 
   open(content) {
+    this.searchText = '';
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       if (this.selectedManager) {

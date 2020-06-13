@@ -17,7 +17,6 @@ public class Project {
     int priority;
     @ManyToOne
     @JoinColumn(name = "manager_id" ,nullable = false)
-    @JsonBackReference
     private User manager;
 
     public Project() {

@@ -35,4 +35,14 @@ public class ProjectController {
         return this.projectService.getProjects();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity updateProject(@PathVariable("id") Long id, @RequestBody Project project) {
+        logger.info("Updating Project " + project);
+        Project updatedProject = this.projectService.updateProject(project);
+        if (updatedProject != null) {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+
 }
