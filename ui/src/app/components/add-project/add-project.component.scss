@@ -2,3 +2,11 @@ button {
     width: 6rem;
     margin: 0.1rem;
 }
+
+a {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: dotted;
+    border-bottom-width: thin;
+}

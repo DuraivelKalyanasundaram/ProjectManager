@@ -19,22 +19,22 @@
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                        <input type="checkbox" id='startEndDate' name="startEndDate" [(ngModel)]="startEndDateChecked" (change)="startDateEndDateSelect()">
+                        <input type="checkbox" id='startEndDate' name="startEndDate" [(ngModel)]="startEndDateChecked"
+                            (change)="startDateEndDateSelect()">
                     </div>
-                    <label for="startEndDate" style="margin-bottom: 0px;">Set Start and End Date</label>
+                    <label for="startEndDate" style="margin-bottom: 0px;">Set Start & End Date</label>
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
             <label for="startDate" style="margin-bottom: 0px; margin-right: 0.5rem;">Start Date : </label>
-            <input type="date" #startDate name="startDate" id="startDate" placeholder="Start Date"
-                style="width: 150px;" [disabled]="!startEndDateChecked" [(ngModel)]="startDateSelected"
-                (change)="startDateSelect()">
+            <input type="date" #startDate name="startDate" id="startDate" placeholder="Start Date" style="width: 150px;"
+                [disabled]="!startEndDateChecked" [(ngModel)]="startDateSelected" (change)="startDateSelect()">
         </div>
         <div class="col-sm-3">
             <label for="endDate" style="margin-bottom: 0px; margin-right: 0.5rem;">End Date : </label>
-            <input type="date" #endDate name="endDate" id="endDate" placeholder="End Date"
-                style="width: 150px;" [disabled]="!startEndDateChecked" [(ngModel)]="endDateSelected">
+            <input type="date" #endDate name="endDate" id="endDate" placeholder="End Date" style="width: 150px;"
+                [disabled]="!startEndDateChecked" [(ngModel)]="endDateSelected">
         </div>
     </div>
 
@@ -66,7 +66,8 @@
     <div class="form-group row">
         <div class="col-sm-5 col-md-7 col-lg-6"></div>
         <div class="col-sm-4 col-md-2 col-lg-3">
-            <button type="submit" class="btn btn-primary" [disabled]="!newProjectForm.form.valid || manager==='' || !startEndDateChecked"
+            <button type="submit" class="btn btn-primary"
+                [disabled]="!newProjectForm.form.valid || manager==='' || !startEndDateChecked"
                 (click)="useraction(newProjectForm)">{{buttonAction}}</button>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
@@ -89,13 +90,12 @@
                 aria-label="Search" [(ngModel)]="searchText">
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item" style="border: 0px;"  *ngFor="let user of users | filter: searchText">
+            <li class="list-group-item" style="border: 0px;" *ngFor="let user of users | filter: searchText">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
-                            <input type="radio" name="radiogroup" 
-                            aria-label="Radio button for following text input"
-                            (change)="onSelectedManagerChange(user)">
+                            <input type="radio" name="radiogroup" aria-label="Radio button for following text input"
+                                (change)="onSelectedManagerChange(user)">
                         </div>
                     </div>
                     <label class="form-control" aria-label="Text input with radio button" disabled>
@@ -116,3 +116,45 @@
 
 <hr />
 <br>
+
+
+
+<div class="list-group">
+    <a *ngFor="let project of projects" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="row">
+            <div class="col-7 list-group-item-dark">
+                <div class="row">
+                    <h5 class="mb-1">Project: {{project.name}}</h5>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <p class="mb-1">No. of tasks - </p>
+                    </div>
+                    <div class="col-6" style="text-align: left;">
+                        <p class="mb-1">Completed -</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <p class="mb-1">Start Date: {{project.startDate | slice:0:10}}</p>
+                    </div>
+                    <div class="col-6">
+                        <p class="mb-1">End Date: {{project.endDate | slice:0:10}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2" style="text-align: center;">
+                <div class="d-flex w-100" style="text-align: center;">
+                    <h5 class="mb-1">Priority</h5>
+                </div>
+                <h1 class="list-group-item-dark" style="text-align: center;">{{project.priority}}</h1>
+            </div>
+            <div class="col-3">
+                <div class="d-flex flex-column">
+                    <button class="btn btn-secondary btn-sm" (click)="editUser(user)">Update</button>
+                    <button class="btn btn-secondary btn-sm" (click)="deleteUser(user)">Suspend</button>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
