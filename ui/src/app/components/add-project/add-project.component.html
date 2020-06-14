@@ -117,10 +117,32 @@
 <hr />
 <br>
 
+<nav class="navbar navbar-light bg-light">
+    <!-- <form class="form-inline"> -->
+    <!-- <div class="row"> -->
+    <input class="form-control mr-sm-2" name="searchBox" type="search" placeholder="Search..." aria-label="Search"
+        [(ngModel)]="searchText">
 
+    <label class="" style="border: none; background: none; margin-bottom: 0px; margin-left: 10px;">Sort By : </label>
+    <button type="button" class="btn btn-secondary btn-sm" (click)="sortBy('startDate')" style="margin: 10px;">
+        Start Date
+    </button>
+    <button type="button" class="form-control btn btn-secondary btn-sm" (click)="sortBy('endDate')"
+        style="margin: 10px;">
+        End Date
+    </button>
+    <button type="button" class="form-control btn btn-secondary btn-sm" (click)="sortBy('priority')" style="margin: 10px;">
+        Priority
+    </button>
+    <button type="button" class="form-control btn btn-secondary btn-sm" (click)="sortBy('completed')" style="margin: 10px;">
+        Completed
+    </button>
+    <!-- </form> -->
+</nav>
 
 <div class="list-group">
-    <a *ngFor="let project of projects" class="list-group-item list-group-item-action flex-column align-items-start">
+    <a *ngFor="let project of projects | filter: searchText"
+        class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="row">
             <div class="col-7 list-group-item-dark">
                 <div class="row">
@@ -150,9 +172,9 @@
                 <h1 class="list-group-item-dark" style="text-align: center;">{{project.priority}}</h1>
             </div>
             <div class="col-3">
-                <div class="d-flex flex-column">
-                    <button class="btn btn-secondary btn-sm" (click)="editProject(project)">Update</button>
-                    <button class="btn btn-secondary btn-sm" (click)="deleteProject(project)">Suspend</button>
+                <div class="d-flex flex-column" style="align-items: center;">
+                    <button class="btn btn-secondary" (click)="editProject(project)">Update</button>
+                    <button class="btn btn-secondary" (click)="suspendProject(project)">Suspend</button>
                 </div>
             </div>
         </div>

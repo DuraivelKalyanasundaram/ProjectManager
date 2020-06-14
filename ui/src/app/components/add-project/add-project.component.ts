@@ -146,6 +146,27 @@ export class AddProjectComponent implements OnInit, AfterViewInit {
 
   }
 
+  sortBy(event) {
+    console.log ('Sorting on ' + event);
+    switch(event) {
+      case 'startDate':
+        this.projects.sort((a,b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+        break;
+      case 'endDate':
+        this.projects.sort((a,b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime());
+        break;
+      case 'priority': 
+      this.projects.sort((a,b) => Number(a.priority) - Number(b.priority));
+        break;
+      case 'completed':
+        break;
+    }
+  }
+
+  suspendProject(project: ProjectDTO) {
+
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
