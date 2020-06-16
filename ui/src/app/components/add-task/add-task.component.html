@@ -14,7 +14,7 @@
                 required disabled>
         </div>
         <div class="col-sm-2 col-lg-1" style="text-align: right;">
-            <button type="button" class="btn btn-secondary" (click)="open(searchProjectModel)">
+            <button type="button" class="btn btn-secondary" (click)="openProjectSearch(searchProjectModel)">
                 Search
             </button>
         </div>
@@ -32,12 +32,73 @@
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                        <input type="checkbox" id='parentTask' name="parentTask" [(ngModel)]="parentTask"
-                            (change)="parentTaskSelect()">
+                        <input type="checkbox" id='parentTask' name="parentTask" [(ngModel)]="parentTask">
                     </div>
                     <label for="startEndDate" style="margin-bottom: 0px;">Parent Task</label>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-2 col-form-label" for="formControlRange">Priority : </label>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-5"><small>0</small></div>
+                <div class="col-sm-7" style="text-align: right;"><small>30</small></div>
+            </div>
+            <div class="row">
+                <input type="range" class="form-control-range" id="formControlRange" name="formControlRange" min="0"
+                    max="30" value="0" [(ngModel)]="priorityValue" autocomplete="off" [disabled]="parentTask">
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="parentTaskName">Parent Task : </label>
+        <div class="col-sm-7 col-lg-8">
+            <input type="text" class="form-control" id="parentTaskName" name="parentTaskName" [(ngModel)]="parentTaskName"
+                placeholder="" disabled>
+        </div>
+        <div class="col-sm-2 col-lg-1" style="text-align: right;">
+            <button type="button" class="btn btn-secondary" (click)="openParentSearch(searchParentModel)" [disabled]="parentTask">
+                Search
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label"></label>
+        <label for="startDate" class="col-sm-2 col-form-label" style="margin-bottom: 0px; padding-right: 0px;">Start
+            Date :</label>
+        <input type="date" class="col-sm-2.5 col-form-label" #startDate name="startDate" id="startDate" [disabled]="parentTask"
+            placeholder="Start Date" style="width: 150px;" [(ngModel)]="startDateSelected" (change)="startDateSelect()">
+        <label for="endDate" class="col-sm-2 col-form-label" style="margin-bottom: 0px; padding-right: 0px;">End Date
+            :</label>
+        <input type="date" class="col-sm-2.5 col-form-label" #endDate name="endDate" id="endDate" [disabled]="parentTask"
+            placeholder="End Date" style="width: 150px;" [(ngModel)]="endDateSelected">
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="userName">User : </label>
+        <div class="col-sm-7 col-lg-8">
+            <input type="text" class="form-control" id="userName" name="userName" [(ngModel)]="userName" placeholder=""
+                disabled>
+        </div>
+        <div class="col-sm-2 col-lg-1" style="text-align: right;">
+            <button type="button" class="btn btn-secondary" (click)="openUserSearch(searchUserModel)" [disabled]="parentTask">
+                Search
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-5 col-md-7 col-lg-6"></div>
+        <div class="col-sm-4 col-md-2 col-lg-3">
+            <button type="submit" class="btn btn-primary"
+                [disabled]="!newTaskForm.form.valid"
+                (click)="useraction(newTaskForm)">{{buttonAction}}</button>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <button type="reset" class="btn btn-primary">Reset</button>
         </div>
     </div>
 </form>
@@ -57,7 +118,8 @@
                 aria-label="Search" [(ngModel)]="searchProjectText">
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item" style="border: 0px;" *ngFor="let project of projects | filter: searchProjectText">
+            <li class="list-group-item" style="border: 0px;"
+                *ngFor="let project of projects | filter: searchProjectText">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -67,6 +129,74 @@
                     </div>
                     <label class="form-control" aria-label="Text input with radio button" disabled>
                         {{project.name}}
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #searchParentModel let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Search Parent Task</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div style="padding-right: 0px; margin-right: 20px; margin-left: 20px;">
+            <input class="form-control mr-sm-2" name="searchBox" type="search" placeholder="Search..."
+                aria-label="Search" [(ngModel)]="searchParentTaskText">
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="border: 0px;" *ngFor="let parentTask of parentTasks | filter: searchParentTaskText">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="radio" name="radiogroup" aria-label="Radio button for following text input"
+                                (change)="onSelectedParentTaskChange(parentTask)">
+                        </div>
+                    </div>
+                    <label class="form-control" aria-label="Text input with radio button" disabled>
+                        {{parentTask.name}}
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #searchUserModel let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Search User</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div style="padding-right: 0px; margin-right: 20px; margin-left: 20px;">
+            <input class="form-control mr-sm-2" name="searchBox" type="search" placeholder="Search..."
+                aria-label="Search" [(ngModel)]="searchUserText">
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="border: 0px;" *ngFor="let user of users | filter: searchUserText">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="radio" name="radiogroup" aria-label="Radio button for following text input"
+                                (change)="onSelectedUserChange(user)">
+                        </div>
+                    </div>
+                    <label class="form-control" aria-label="Text input with radio button" disabled>
+                        {{user.firstName}} {{user.lastName}}
                     </label>
                 </div>
             </li>
