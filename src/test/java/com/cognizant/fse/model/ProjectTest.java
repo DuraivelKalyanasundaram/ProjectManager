@@ -16,7 +16,7 @@ public class ProjectTest {
                                         new Date(new java.util.Date().getTime()),
                                         new Date(new java.util.Date().getTime()),
                                         1,
-                                        manager);
+                                        manager, null);
         Assertions.assertEquals("sample project", project.getName());
         Assertions.assertEquals(1, project.getId());
         Assertions.assertEquals(1, project.getPriority());

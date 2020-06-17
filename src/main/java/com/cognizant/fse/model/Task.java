@@ -23,11 +23,14 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "project_id", nullable = true)
+    private Project project;
 
     public Task() {
     }
 
-    public Task(Long id, ParentTask parentTask, String name, Date startDate, Date endDate, int priority, TaskStatus status, User user) {
+    public Task(Long id, ParentTask parentTask, String name, Date startDate, Date endDate, int priority, TaskStatus status, User user, Project project) {
         this.id = id;
         this.parentTask = parentTask;
         this.name = name;
@@ -36,6 +39,7 @@ public class Task {
         this.priority = priority;
         this.status = status;
         this.user = user;
+        this.project = project;
     }
 
     public ParentTask getParentTask() {
@@ -102,6 +106,14 @@ public class Task {
         this.user = user;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -113,6 +125,7 @@ public class Task {
                 ", priority=" + priority +
                 ", status=" + status +
                 ", user=" + user +
+                ", project=" + project +
                 '}';
     }
 }

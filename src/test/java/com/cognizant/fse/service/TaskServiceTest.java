@@ -44,7 +44,7 @@ public class TaskServiceTest {
 
         Task task = new Task(1L, persistedParentTask, "Task 1", new Date(),
                             new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
-                                1, TaskStatus.NOT_STARTED, null);
+                                1, TaskStatus.NOT_STARTED, null, null);
         Task persistedTask = this.taskService.addTask(task);
         Assertions.assertNotNull(persistedTask);
         Assertions.assertEquals("Task 1", persistedTask.getName());
@@ -61,10 +61,10 @@ public class TaskServiceTest {
 
         Task task1 = new Task(1L, persistedParentTask, "Task 1", new Date(),
                                 new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
-                                1, TaskStatus.NOT_STARTED, null);
+                                1, TaskStatus.NOT_STARTED, null, null);
         Task task2 = new Task(2L, persistedParentTask, "Task 2", new Date(),
                                 new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
-                                2, TaskStatus.NOT_STARTED, null);
+                                2, TaskStatus.NOT_STARTED, null, null);
         Task persistedTask1 = this.taskService.addTask(task1);
         Task persistedTask2 = this.taskService.addTask(task2);
 
@@ -92,7 +92,7 @@ public class TaskServiceTest {
 
         Task task = new Task(1L, persistedParentTask, "Task 1", new Date(),
                                 new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
-                                1, TaskStatus.NOT_STARTED, null);
+                                1, TaskStatus.NOT_STARTED, null, null);
         this.taskService.addTask(task);
         Assertions.assertEquals(1, this.taskService.getTasks().size());
     }
@@ -105,10 +105,10 @@ public class TaskServiceTest {
 
         Task task1 = new Task(1L, persistedParentTask, "Task 1", new Date(),
                                 new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
-                                1, TaskStatus.NOT_STARTED, null);
+                                1, TaskStatus.NOT_STARTED, null, null);
         Task task2 = new Task(2L, persistedParentTask, "Task 2", new Date(),
                                 new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
-                                2, TaskStatus.NOT_STARTED, null);
+                                2, TaskStatus.NOT_STARTED, null, null);
         this.taskService.addTask(task1);
         this.taskService.addTask(task2);
 

@@ -52,7 +52,7 @@ public class ProjectServiceTest {
         Project project = new Project(1L, "New Project", new Date(),
                                         new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
                                         30,
-                                        returnedUser1);
+                                        returnedUser1, null);
         Project persistedProject = this.projectService.addProject(project);
         Assertions.assertNotNull(persistedProject);
         Assertions.assertEquals("New Project", persistedProject.getName());
@@ -78,12 +78,12 @@ public class ProjectServiceTest {
         Project project = new Project(1L, "New Project", new Date(),
                                         new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
                                         30,
-                                        returnedUser1);
+                                        returnedUser1, null);
         Project project2 = new Project(2L, "New Project",
                                         new Date(),
                                         new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
                                         15,
-                                        returnedUser1);
+                                        returnedUser1, null);
         Project persistedProject = this.projectService.addProject(project);
         Project persistedProject2 = this.projectService.addProject(project2);
         Assertions.assertNotNull(persistedProject);
@@ -106,7 +106,7 @@ public class ProjectServiceTest {
         Project project = new Project(1L, "New Project", new Date(),
                                         new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
                                         30,
-                                        returnedUser1);
+                                        returnedUser1, null);
         Project persistedProject = this.projectService.addProject(project);
         Assertions.assertNotNull(persistedProject);
 

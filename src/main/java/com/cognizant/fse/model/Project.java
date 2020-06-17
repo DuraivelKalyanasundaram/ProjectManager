@@ -1,10 +1,12 @@
 package com.cognizant.fse.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Project {
@@ -18,17 +20,21 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "manager_id" ,nullable = false)
     private User manager;
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private Set<Task> tasks;
 
     public Project() {
     }
 
-    public Project(Long id, String name, Date startDate, Date endDate, int priority, User manager) {
+    public Project(Long id, String name, Date startDate, Date endDate, int priority, User manager, Set<Task> tasks) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.priority = priority;
         this.manager = manager;
+        this.tasks = tasks;
     }
 
     public Long getId() {
@@ -77,6 +83,14 @@ public class Project {
 
     public void setManager(User manager) {
         this.manager = manager;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
