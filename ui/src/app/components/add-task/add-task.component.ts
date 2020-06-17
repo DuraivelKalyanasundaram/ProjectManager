@@ -8,6 +8,8 @@ import { UserService } from 'src/app/services/user.service';
 import { ParenttaskService } from 'src/app/services/parenttask.service';
 import { ParentTaskDTO } from 'src/app/model/ParentTaskDTO';
 import { ParentTask } from 'src/app/model/ParentTask';
+import { TaskService } from 'src/app/services/task.service';
+import { Task } from 'src/app/model/Task';
 
 @Component({
   selector: 'app-add-task',
@@ -44,6 +46,7 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
   constructor(private projectService: ProjectService,
               private userService: UserService,
               private parentTaskService: ParenttaskService,
+              private taskService: TaskService,
               private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -84,7 +87,16 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
         },5000);
       });
     } else {
-      
+      const task = new Task(this.taskName, this.selectedParentTask, 
+                            this.startDateSelected, this.endDateSelected,
+                            this.priorityValue.toString(), "NOT_STARTED",
+                            this.selectedUser, this.selectedProject);
+      this.taskService.addTask(task).subscribe(data => {
+        this.taskAddedSuccessfully = true;
+        setTimeout(()=> {
+          this.taskAddedSuccessfully = false;
+        }, 5000);
+      })
     }
     this.buttonAction = 'Add';
     taskForm.reset();
@@ -112,6 +124,8 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
     this.parentTaskName = '';
     this.userName = '';
     this.buttonAction = 'Add';
+    this.taskAddedSuccessfully = false;
+    this.parentTaskAddedSuccessfully = false;
     this.projectService.getProjects().subscribe(data => {
       this.projects = data;
     }, error => {
@@ -124,6 +138,7 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
     });
     this.parentTaskService.getParentTasks().subscribe(data => {
       this.parentTasks = data;
+      console.log(this.parentTasks);
     }, error => {
       console.error('Error ' + error);
     })
