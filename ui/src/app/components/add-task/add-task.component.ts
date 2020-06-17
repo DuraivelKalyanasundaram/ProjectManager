@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { ParenttaskService } from 'src/app/services/parenttask.service';
 import { ParentTaskDTO } from 'src/app/model/ParentTaskDTO';
+import { ParentTask } from 'src/app/model/ParentTask';
 
 @Component({
   selector: 'app-add-task',
@@ -23,7 +24,7 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
   selectedProject : ProjectDTO;
   closeResult: string;
   taskName = '';
-  parentTask = '';
+  parentTask = false;
   priorityValue = 0;
   parentTaskName = '';
   userName = '';
@@ -34,6 +35,8 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
   parentTasks: ParentTaskDTO[];
   selectedParentTask: ParentTaskDTO;
   buttonAction = 'Add';
+  parentTaskAddedSuccessfully = false;
+  taskAddedSuccessfully = false;
 
   @ViewChild('startDate') startDate: ElementRef;
   @ViewChild('endDate') endDate: ElementRef;
@@ -48,11 +51,7 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const today = this.getToday();
-    const tomorrow = this.getTomorrow();
-    this.startDate.nativeElement.setAttribute('value', today);
-    this.startDate.nativeElement.setAttribute('min', today);
-    this.endDate.nativeElement.setAttribute('value', tomorrow);
+    this.initializeDateFields();
   }
 
   onSelectedProjectChange(project: ProjectDTO) {
@@ -67,37 +66,39 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
     this.selectedParentTask = parentTask;
   }
 
+  parentTaskToggle() {
+    if (!this.parentTask) {
+      const today = this.getToday();
+      const tomorrow = this.getTomorrow();
+      this.startDateSelected = today;
+      this.endDateSelected = tomorrow;
+    }
+  }
+
   useraction(taskForm: NgForm) {
-    // if (this.updateMode) {
-    //   this.selectedProject.name = this.projectTitle;
-    //   this.selectedProject.startDate = this.startDateSelected;
-    //   this.selectedProject.endDate = this.endDateSelected;
-    //   this.selectedProject.priority = this.priorityValue.toString();
-    //   this.selectedProject.manager = this.selectedManager;
-    //   this.projectService.updateProject(this.selectedProject).subscribe(data => {
-    //     this.projectUpdated = true;
-    //     setTimeout(() => {
-    //       this.projectUpdated = false;
-    //     }, 5000);
-    //     this.getProjects();
-    //   }, error => {
-    //     console.error('Error ' + error);
-    //   })
-    // } else {
-    //   const project = new Project(this.projectTitle, this.startDateSelected, this.endDateSelected, this.priorityValue.toString(), this.selectedManager);  
-    //   this.projectService.addProject(project).subscribe(data => {
-    //     console.log ('Project added ' + data);
-    //     this.projectAdded = true;
-    //     setTimeout(() => {
-    //       this.projectAdded = false
-    //     }, 5000);
-    //     this.getProjects();
-    //   }, error => {
-    //     console.error('Error ' + error);
-    //   })
-    // }
+    if(this.parentTask) {
+      this.parentTaskService.addParentTask(new ParentTask(this.taskName)).subscribe(data =>{
+        this.parentTaskAddedSuccessfully = true;
+        setTimeout(() => {
+          this.parentTaskAddedSuccessfully = false;
+        },5000);
+      });
+    } else {
+      
+    }
     this.buttonAction = 'Add';
     taskForm.reset();
+  }
+
+  private initializeDateFields() {
+    const today = this.getToday();
+    const tomorrow = this.getTomorrow();
+    this.startDateSelected = today;
+    this.endDateSelected = tomorrow;
+    this.startDate.nativeElement.setAttribute('value', today);
+    this.startDate.nativeElement.setAttribute('min', today);
+    this.endDate.nativeElement.setAttribute('value', tomorrow);
+    this.endDate.nativeElement.setAttribute('min', tomorrow);
   }
 
   private pageInitialize() {
@@ -106,7 +107,7 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
     this.searchUserText = '';
     this.searchParentTaskText = '';
     this.taskName = '';
-    this.parentTask = '';
+    this.parentTask = false;
     this.priorityValue = 0;
     this.parentTaskName = '';
     this.userName = '';
@@ -156,8 +157,8 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
     this.searchParentTaskText = '';
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with ${result}`;
-      if(this.selectedUser) {
-        this.userName = this.selectedUser.firstName + ' ' + this.selectedUser.lastName;
+      if(this.selectedParentTask) {
+        this.parentTaskName = this.selectedParentTask.name;
       }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

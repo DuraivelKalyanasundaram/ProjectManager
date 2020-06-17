@@ -32,7 +32,7 @@
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                        <input type="checkbox" id='parentTask' name="parentTask" [(ngModel)]="parentTask">
+                        <input type="checkbox" id='parentTask' name="parentTask" [(ngModel)]="parentTask" (change)="parentTaskToggle()">
                     </div>
                     <label for="startEndDate" style="margin-bottom: 0px;">Parent Task</label>
                 </div>
@@ -48,7 +48,7 @@
             </div>
             <div class="row">
                 <input type="range" class="form-control-range" id="formControlRange" name="formControlRange" min="0"
-                    max="30" value="0" [(ngModel)]="priorityValue" autocomplete="off" [disabled]="parentTask">
+                    max="30" [(ngModel)]="priorityValue" [disabled]="parentTask">
             </div>
         </div>
     </div>
@@ -94,7 +94,7 @@
         <div class="col-sm-5 col-md-7 col-lg-6"></div>
         <div class="col-sm-4 col-md-2 col-lg-3">
             <button type="submit" class="btn btn-primary"
-                [disabled]="!newTaskForm.form.valid"
+                [disabled]="!(newTaskForm.form.valid && (parentTask?true:(selectedParentTask && selectedUser)))"
                 (click)="useraction(newTaskForm)">{{buttonAction}}</button>
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
@@ -103,6 +103,7 @@
     </div>
 </form>
 
+<div *ngIf="parentTaskAddedSuccessfully" class="alert alert-success" role="alert">Parent Task is successfully added</div>
 
 <ng-template #searchProjectModel let-modal>
     <div class="modal-header">
