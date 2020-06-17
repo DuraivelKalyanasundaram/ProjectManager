@@ -1,6 +1,7 @@
 package com.cognizant.fse.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -19,7 +20,9 @@ public class User {
     @OneToMany(mappedBy = "manager" , cascade = CascadeType.REMOVE)
     @JsonBackReference
     private Set<Project> projects;
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+//    @JsonBackReference
+    @JsonIgnore
     private Set<Task> tasks = new HashSet<>();
 
     public User() {

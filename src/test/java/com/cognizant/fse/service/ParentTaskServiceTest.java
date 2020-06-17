@@ -30,7 +30,7 @@ public class ParentTaskServiceTest {
 
     @Test
     public void addParentTask_test2() {
-        ParentTask parentTask = new ParentTask(1L, "Parent Task");
+        ParentTask parentTask = new ParentTask(1L, "Parent Task", null);
         ParentTask savedParentTask = this.parentTaskService.addParentTask(parentTask);
         Assertions.assertNotNull(savedParentTask);
         Assertions.assertEquals("Parent Task", savedParentTask.getName());
@@ -43,7 +43,7 @@ public class ParentTaskServiceTest {
 
     @Test
     public void getParentTasks_test2() {
-        ParentTask parentTask = new ParentTask(1L, "Parent Task");
+        ParentTask parentTask = new ParentTask(1L, "Parent Task", null);
         ParentTask savedParentTask = this.parentTaskService.addParentTask(parentTask);
         Assertions.assertNotNull(savedParentTask);
         Assertions.assertEquals("Parent Task", savedParentTask.getName());
@@ -53,8 +53,8 @@ public class ParentTaskServiceTest {
 
     @Test
     public void getParentTasks_test3() {
-        ParentTask parentTask = new ParentTask(1L, "Parent Task");
-        ParentTask parentTask1 = new ParentTask(2L, "Parent Task 2");
+        ParentTask parentTask = new ParentTask(1L, "Parent Task", null);
+        ParentTask parentTask1 = new ParentTask(2L, "Parent Task 2", null);
         this.parentTaskService.addParentTask(parentTask);
         this.parentTaskService.addParentTask(parentTask1);
 

@@ -8,7 +8,7 @@ public class ParentTaskTest {
 
     @Test
     public void test1() {
-        ParentTask parentTask = new ParentTask(1L, "Parent 1");
+        ParentTask parentTask = new ParentTask(1L, "Parent 1", null);
         Assertions.assertNotNull(parentTask);
         Assertions.assertEquals(1, parentTask.getId());
         Assertions.assertEquals("Parent 1", parentTask.getName());

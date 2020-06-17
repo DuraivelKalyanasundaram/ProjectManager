@@ -1,9 +1,9 @@
 package com.cognizant.fse.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Task {
@@ -20,11 +20,14 @@ public class Task {
     private Date endDate;
     private int priority;
     private TaskStatus status;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
+    private User user;
 
     public Task() {
     }
 
-    public Task(Long id, ParentTask parentTask, String name, Date startDate, Date endDate, int priority, TaskStatus status) {
+    public Task(Long id, ParentTask parentTask, String name, Date startDate, Date endDate, int priority, TaskStatus status, User user) {
         this.id = id;
         this.parentTask = parentTask;
         this.name = name;
@@ -32,6 +35,7 @@ public class Task {
         this.endDate = endDate;
         this.priority = priority;
         this.status = status;
+        this.user = user;
     }
 
     public ParentTask getParentTask() {
@@ -88,5 +92,27 @@ public class Task {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", parentTask=" + parentTask +
+                ", name='" + name + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", priority=" + priority +
+                ", status=" + status +
+                ", user=" + user +
+                '}';
     }
 }
