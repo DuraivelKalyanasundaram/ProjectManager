@@ -4,6 +4,7 @@ import { ProjectDTO } from './ProjectDTO';
 
 export class TaskDTO {
     constructor(
+        public id: Number,
         public name: string,
         public parentTask: ParentTaskDTO,
         public startDate: string,

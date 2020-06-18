@@ -51,20 +51,144 @@
             </div>
             <div class="col-2 col-lg-2 list-group-item-dark">
                 <div class="vertical-center">
-                    {{task.parentTask.name}}
+                    {{task.parentTask? task.parentTask.name:''}}
                 </div>
             </div>
             <div class="col-1 col-lg-1">{{task.priority}}</div>
             <div class="col-2 col-lg-2">{{task.startDate | slice:0:10}}</div>
             <div class="col-2 col-lg-2">{{task.endDate | slice:0:10}}</div>
             <div class="col-2 col-lg-3">
-                <button class="btn btn-secondary btn-sm">Edit</button>
-                <button class="btn btn-secondary btn-sm">End Task</button>
+                <button class="btn btn-secondary btn-sm" (click)="openEditTask(editTaskModel, task)">Edit</button>
+                <button class="btn btn-secondary btn-sm" (click)="setComplete(task)">End Task</button>
+                
             </div>
         </div>
     </a>
 </div>
 
+<ng-template #editTaskModel let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Edit Task</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <form ngNativeValidate #updateTaskForm="ngForm">
+            <div class="form-group row">
+                <label for="project" style="margin: 1rem; width: 4rem;">Project : </label>
+                <input type="text" style="margin: 1rem; width: 14rem;" name="project" id="project" [(ngModel)]="project" disabled>
+            </div>
+            <div class="form-group row">
+                <label for="" style="margin: 1rem; width: 4rem;">Task : </label>
+                <input type="text" style="margin: 1rem; width: 14rem;" name="task" id="task" [(ngModel)]="taskName" required>
+            </div>
+            <div class="form-group row">
+                <label style="margin: 1rem; width: 4rem;" ></label>
+                <input type="checkbox" style="margin: 1rem; width: 2rem; height: 1.5rem;" id="parentTask" name="parentTask" [(ngModel)]="parentTask" disabled>
+                <label for="parentTask" style="margin: 1rem; width: 8rem;">Parent Task</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-2 col-form-label" for="formControlRange" >Priority</label>
+                <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-sm-5"><small>0</small></div>
+                        <div class="col-sm-7" style="text-align: right;"><small>30</small></div>
+                    </div>
+                    <div class="row">
+                        <input type="range" class="form-control-range" id="formControlRange" name="formControlRange" min="0"
+                            max="30" [(ngModel)]="priorityValue" [disabled]="parentTask">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="parentTaskName">Parent</label>
+                <div class="col-sm-6 col-lg-6">
+                    <input type="text" class="form-control" id="parentTaskName" name="parentTaskName" [(ngModel)]="parentTaskName"
+                        placeholder="" disabled>
+                </div>
+                <div class="col-sm-2 col-lg-1" style="text-align: right;">
+                    <button type="button" class="btn btn-secondary" (click)="openParentSearch(searchParentModel)" [disabled]="parentTask">
+                        Search
+                    </button>
+                </div>
+            </div>
+        
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label"></label>
+                <label for="startDate" class="col-sm-2 col-form-label" style="margin-bottom: 0px; padding-right: 0px;">Start Dt :</label>
+                <input type="date" class="col-sm-2.5 col-form-label" #startDate name="startDate" id="startDate" [disabled]="parentTask"
+                    placeholder="Start Date" style="width: 150px;" [(ngModel)]="startDateSelected" (change)="startDateSelect()">
+            </div>
+            <div class="form-group row">
+                    <label class="col-sm-2 col-form-label"></label>
+                    <label for="endDate" class="col-sm-2 col-form-label" style="margin-bottom: 0px; padding-right: 0px;">End Dt:</label>
+                <input type="date" class="col-sm-2.5 col-form-label" #endDate name="endDate" id="endDate" [disabled]="parentTask"
+                    placeholder="End Date" style="width: 150px;" [(ngModel)]="endDateSelected">
+            </div>
+        
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="userName">User</label>
+                <div class="col-sm-6 col-lg-6">
+                    <input type="text" class="form-control" id="userName" name="userName" [(ngModel)]="userName" placeholder=""
+                        disabled>
+                </div>
+            </div>
+            <div *ngIf="taskUpdatedMessage" class="alert alert-success" role="alert">
+                Task is updated successfully. If there are no other updates, click Close.
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-5 col-md-7 col-lg-6"></div>
+                <div class="col-sm-4 col-md-2 col-lg-3">
+                    <button type="submit" class="btn btn-primary" style="width: 6rem; margin: 0.1rem;"
+                        [disabled]="!(updateTaskForm.form.valid)"
+                        (click)="useraction(updateTaskForm)">Update</button>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    <button type="reset" class="btn btn-primary" (click)="modal.close('Save click')">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div> -->
+</ng-template>
+
+<ng-template #searchParentModel let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Search Parent Task</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div style="padding-right: 0px; margin-right: 20px; margin-left: 20px;">
+            <input class="form-control mr-sm-2" name="searchBox" type="search" placeholder="Search..."
+                aria-label="Search" [(ngModel)]="searchParentTaskText">
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" style="border: 0px;" *ngFor="let parentTask of parentTasks | filter: searchParentTaskText">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="radio" name="radiogroup" aria-label="Radio button for following text input"
+                                (change)="onSelectedParentTaskChange(parentTask)">
+                        </div>
+                    </div>
+                    <label class="form-control" aria-label="Text input with radio button" disabled>
+                        {{parentTask.name}}
+                    </label>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>
 
 
 <ng-template #searchProjectModel let-modal>

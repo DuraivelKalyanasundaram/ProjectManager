@@ -10,6 +10,7 @@ import { ParentTaskDTO } from 'src/app/model/ParentTaskDTO';
 import { ParentTask } from 'src/app/model/ParentTask';
 import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/model/Task';
+import { TaskDTO } from 'src/app/model/TaskDTO';
 
 @Component({
   selector: 'app-add-task',
@@ -94,6 +95,7 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
                             this.selectedUser, this.selectedProject);
       this.taskService.addTask(task).subscribe(data => {
         this.taskAddedSuccessfully = true;
+        this.selectedProject = null;
         setTimeout(()=> {
           this.taskAddedSuccessfully = false;
         }, 5000);
@@ -127,6 +129,7 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
     this.buttonAction = 'Add';
     this.taskAddedSuccessfully = false;
     this.parentTaskAddedSuccessfully = false;
+    this.selectedParentTask = null;
     this.projectService.getProjects().subscribe(data => {
       this.projects = data;
     }, error => {
@@ -140,6 +143,9 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
     this.loadParentTasks();
   }
 
+  setComplete(task: TaskDTO) {
+
+  }
 
   openProjectSearch(content) {
     this.searchProjectText = '';

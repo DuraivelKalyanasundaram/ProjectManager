@@ -8,4 +8,5 @@ public interface TaskService {
     Task addTask(Task task);
     List<Task> getTasks();
     List<Task> getTasks(Long projectId);
+    Task updateTask(Task task);
 }

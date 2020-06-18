@@ -1,9 +1,6 @@
 package com.cognizant.fse.controller;
 
-import com.cognizant.fse.model.ParentTask;
-import com.cognizant.fse.model.Project;
-import com.cognizant.fse.model.Task;
-import com.cognizant.fse.model.User;
+import com.cognizant.fse.model.*;
 import com.cognizant.fse.repository.ParentTaskRespository;
 import com.cognizant.fse.repository.TaskRepository;
 import com.cognizant.fse.repository.UserRepository;
@@ -115,6 +112,22 @@ public class TaskControllerTest {
         response = result.getResponse().getContentAsString();
         List<Task> tasks = objectMapper.readValue(response, new TypeReference<List<Task>>(){});
         Assertions.assertEquals(1, tasks.size());
+
+        Task task = tasks.get(0);
+        task.setStatus(TaskStatus.COMPLETED);
+
+        MockHttpServletRequestBuilder taskPutBuilder = MockMvcRequestBuilders.put("/tasks/" + task.getId())
+                                                                            .contentType(MediaType.APPLICATION_JSON)
+                                                                            .content(objectMapper.writeValueAsString(task));
+        MvcResult putResult = this.mockMvc.perform(taskPutBuilder)
+                                            .andExpect(MockMvcResultMatchers.status().isOk())
+                                            .andReturn();
+
+        response = putResult.getResponse().getContentAsString();
+        Task updatedTask = objectMapper.readValue(response, Task.class);
+        Assertions.assertEquals(TaskStatus.COMPLETED,updatedTask.getStatus());
+
+
     }
 
     @Test
@@ -125,6 +138,5 @@ public class TaskControllerTest {
         List<Task> tasks = objectMapper.readValue(response, new TypeReference<List<Task>>() {});
         Assertions.assertEquals(0, tasks.size());
     }
-
 
 }

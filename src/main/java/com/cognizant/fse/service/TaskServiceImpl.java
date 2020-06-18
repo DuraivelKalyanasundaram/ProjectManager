@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -33,5 +34,28 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> getTasks(Long projectId) {
         return this.taskRepository.findByProjectId(projectId);
+    }
+
+    @Override
+    public Task updateTask(Task task) {
+        if (task != null) {
+            Optional<Task> persistedTaskOptional = this.taskRepository.findById(task.getId());
+            if (persistedTaskOptional.isPresent()) {
+                Task persistedTask = persistedTaskOptional.get();
+                persistedTask.setName(task.getName());
+                persistedTask.setStatus(task.getStatus());
+                persistedTask.setStartDate(task.getStartDate());
+                persistedTask.setEndDate(task.getEndDate());
+                persistedTask.setPriority(task.getPriority());
+                persistedTask.setParentTask(task.getParentTask());
+                persistedTask.setUser(task.getUser());
+                persistedTask.setProject(task.getProject());
+                Task updatedTask = this.taskRepository.save(persistedTask);
+                if (updatedTask != null) {
+                    return  updatedTask;
+                }
+            }
+        }
+        return null;
     }
 }

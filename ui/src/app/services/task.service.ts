@@ -25,4 +25,8 @@ export class TaskService {
     return this.httpClient.get<TaskDTO[]>(this.BASE_URL + '/project/' + id);
   }
 
+  updateTask(task: TaskDTO) {
+    return this.httpClient.put<TaskDTO>(this.BASE_URL + '/' + task.id, task, this.httpOptions);
+  }
+
 }

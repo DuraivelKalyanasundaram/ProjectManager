@@ -143,4 +143,22 @@ public class TaskServiceTest {
         Assertions.assertEquals("Task1", projectTasks.get(0).getName());
     }
 
+    @Test
+    public void updateTask_test1() throws Exception {
+        ParentTask parentTask = new ParentTask(1L, "Parent Task", null);
+        ParentTask persistedParentTask = this.parentTaskService.addParentTask(parentTask);
+        Assertions.assertNotNull(persistedParentTask);
+
+        Task task = new Task(1L, persistedParentTask, "Task 1", new Date(),
+                                new SimpleDateFormat("YYYY-mm-DD").parse("2099-12-31"),
+                                1, TaskStatus.NOT_STARTED, null, null);
+        Task persistedTask = this.taskService.addTask(task);
+        Assertions.assertNotNull(persistedTask);
+
+        persistedTask.setStatus(TaskStatus.COMPLETED);
+        Task updatedTask = this.taskService.updateTask(persistedTask);
+        Assertions.assertNotNull(updatedTask);
+        Assertions.assertEquals(TaskStatus.COMPLETED, updatedTask.getStatus());
+    }
+
 }
