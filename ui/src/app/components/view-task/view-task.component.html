@@ -21,11 +21,11 @@
         </div>
         <div class="col-sm-5 col-md-6 col-lg-6" style="padding: 0px;">
             <label for="startSort" style="margin-bottom: 0px; padding-right: 0.5rem;">Sort By: </label>
-            <button id="startSort" class="btn btn-secondary btn-sm" style="padding-left: 0px; padding-right: 0px;">Start
+            <button id="startSort" class="btn btn-secondary btn-sm" style="padding-left: 0px; padding-right: 0px;" (click)="sortBy('startDate')">Start
                 Date</button>
-            <button class="btn btn-secondary btn-sm" style="padding-left: 0px; padding-right: 0px;">End Date</button>
-            <button class="btn btn-secondary btn-sm" style="padding-left: 0px; padding-right: 0px;">Priority</button>
-            <button class="btn btn-secondary btn-sm" style="padding-left: 0px; padding-right: 0px;">Completed</button>
+            <button class="btn btn-secondary btn-sm" style="padding-left: 0px; padding-right: 0px;" (click)="sortBy('endDate')">End Date</button>
+            <button class="btn btn-secondary btn-sm" style="padding-left: 0px; padding-right: 0px;" (click)="sortBy('priority')">Priority</button>
+            <button class="btn btn-secondary btn-sm" style="padding-left: 0px; padding-right: 0px;" (click)="sortBy('completed')">Completed</button>
         </div>
     </div>
 </form>
