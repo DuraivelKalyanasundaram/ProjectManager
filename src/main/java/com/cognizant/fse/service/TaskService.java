@@ -7,4 +7,5 @@ import java.util.List;
 public interface TaskService {
     Task addTask(Task task);
     List<Task> getTasks();
+    List<Task> getTasks(Long projectId);
 }

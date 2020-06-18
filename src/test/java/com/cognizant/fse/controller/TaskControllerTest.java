@@ -115,7 +115,16 @@ public class TaskControllerTest {
         response = result.getResponse().getContentAsString();
         List<Task> tasks = objectMapper.readValue(response, new TypeReference<List<Task>>(){});
         Assertions.assertEquals(1, tasks.size());
-
     }
+
+    @Test
+    public void getTasksForProject_test1() throws Exception {
+        MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.get("/tasks/project/0")).andReturn();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String response = result.getResponse().getContentAsString();
+        List<Task> tasks = objectMapper.readValue(response, new TypeReference<List<Task>>() {});
+        Assertions.assertEquals(0, tasks.size());
+    }
+
 
 }

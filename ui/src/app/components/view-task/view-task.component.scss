@@ -1,0 +1,17 @@
+button {
+    width: 6rem;
+    margin: 0.1rem;
+}
+
+.vertical-center {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.boxed-border {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: dotted;
+    border-bottom-width: thin;
+}

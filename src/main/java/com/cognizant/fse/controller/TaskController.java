@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,6 +29,14 @@ public class TaskController {
     @GetMapping
     public List<Task> getAllTasks() {
         return this.taskService.getTasks();
+    }
+
+    @GetMapping("/project/{id}")
+    public List<Task> getTasksForProject(@PathVariable("id") Long id) {
+        if (id > 0) {
+            return this.taskService.getTasks(id);
+        }
+        return new ArrayList<>();
     }
 
 }

@@ -29,4 +29,9 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> getTasks() {
         return this.taskRepository.findAll();
     }
+
+    @Override
+    public List<Task> getTasks(Long projectId) {
+        return this.taskRepository.findByProjectId(projectId);
+    }
 }
