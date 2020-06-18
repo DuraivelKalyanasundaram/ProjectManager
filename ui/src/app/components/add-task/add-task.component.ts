@@ -82,6 +82,7 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
     if(this.parentTask) {
       this.parentTaskService.addParentTask(new ParentTask(this.taskName)).subscribe(data =>{
         this.parentTaskAddedSuccessfully = true;
+        this.loadParentTasks();
         setTimeout(() => {
           this.parentTaskAddedSuccessfully = false;
         },5000);
@@ -136,13 +137,9 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
     }, error => {
       console.error('Error ' + error);
     });
-    this.parentTaskService.getParentTasks().subscribe(data => {
-      this.parentTasks = data;
-      console.log(this.parentTasks);
-    }, error => {
-      console.error('Error ' + error);
-    })
+    this.loadParentTasks();
   }
+
 
   openProjectSearch(content) {
     this.searchProjectText = '';
@@ -194,6 +191,15 @@ export class AddTaskComponent implements OnInit, AfterViewInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  private loadParentTasks() {
+    this.parentTaskService.getParentTasks().subscribe(data => {
+      this.parentTasks = data;
+      console.log('Parent Tasks '+ this.parentTasks);
+    }, error => {
+      console.error('Error ' + error);
+    });
   }
 
   private getToday() {
