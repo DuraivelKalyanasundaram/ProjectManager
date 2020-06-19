@@ -30,6 +30,8 @@ This will create an image called projectmanager:latest
 
 Steps to run the docker image
 ----------------------
-1. Once the image is built, execut the command - "docker run -p 9090:9090 projectmanager"
+1. Once the image is built, execut the command - "docker run -p 9090:9090 -e MYSQL_HOST:<myslql_host_ip_address> projectmanager"
 
 The container can be accessed from http://localhost:9090
+Please note that the localhost mysql cannot be used to connect from docker container as it is not accepting connections from outside and we dont have sufficient permissions to change the same.
+
